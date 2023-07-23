@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8933207872713254813}
   - component: {fileID: 2090099656982326455}
   - component: {fileID: 6762964696973116326}
+  - component: {fileID: -8405655899032741318}
   m_Layer: 0
   m_Name: LeftHalfPrefab
   m_TagString: Untagged
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_Size: {x: 0.8923077, y: 0.81153846}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &2090099656982326455
@@ -131,3 +132,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &-8405655899032741318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6111394317530664381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7efd8e0bd722aac48ae93c5b14ff3953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
