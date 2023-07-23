@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7439082264232696460}
   - component: {fileID: 1198804530296010713}
   - component: {fileID: 538541410727496216}
+  - component: {fileID: 8577472794135899357}
   m_Layer: 0
   m_Name: LeftQuarterPrefab
   m_TagString: Untagged
@@ -74,15 +75,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bacea4fbc4618f34fb5f5bbead6c5ff6, type: 3}
+  m_Sprite: {fileID: -1259408508766424310, guid: 58b583ca69fb6e9478732960ddcc116a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5, y: 0.9094828}
+  m_Size: {x: 0.5086207, y: 0.9182874}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &7439082264232696460
@@ -102,8 +103,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.9094828}
-    newSize: {x: 0.5, y: 0.9094828}
+    oldSize: {x: 0.5086207, y: 0.9182874}
+    newSize: {x: 0.5086207, y: 0.9182874}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -144,3 +145,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7efd8e0bd722aac48ae93c5b14ff3953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &8577472794135899357
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9008184458440815696}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 15c2f2258ec05224f92989b586ff0752, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

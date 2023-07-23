@@ -168,6 +168,7 @@ public class CutPlankSpawner : MonoBehaviour
 
         if (!half )
         {
+            leftPiece.GetComponent<Animator>().enabled = false;
             rb2D.AddTorque(rotationTorque * Random.Range(0.5f, 1.5f), ForceMode2D.Impulse);
         }
         else
@@ -182,8 +183,9 @@ public class CutPlankSpawner : MonoBehaviour
         spriteRenderer.sprite = rightSprite;
         rb2D.AddForce(new Vector2(rightwardForce * moveSpeed * Random.Range(0.5f, 1.5f), upwardForce), ForceMode2D.Impulse);
 
-        if (!half )
+        if (!half)
         {
+            rightPiece.GetComponent<Animator>().enabled = false;
             rb2D.AddTorque(-rotationTorque * Random.Range(0.5f, 1.5f), ForceMode2D.Impulse);
         }
         else
