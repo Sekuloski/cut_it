@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4112d2911b80f3f48beb40974b2809e3, type: 3}
+  m_Name: Initial
+  m_EditorClassIdentifier: 
+  name: Initial
+  spritesheetTexture: {fileID: 2800000, guid: 58b583ca69fb6e9478732960ddcc116a, type: 3}
+  leftEight: {fileID: 21300000, guid: a95753918b4df1f4d8c7ebcf6934f3a4, type: 3}
+  leftHalf: {fileID: 21300000, guid: eb6a8eed1afca874489c0c9c8a95788d, type: 3}
+  leftQuarter: {fileID: 21300000, guid: bacea4fbc4618f34fb5f5bbead6c5ff6, type: 3}
+  leftSevenEight: {fileID: 21300000, guid: c90297c62c3ef6545a83381985bdb668, type: 3}
+  leftThreeQuarter: {fileID: 21300000, guid: f98e2692fc198e14496122ac6fb51e55, type: 3}
+  rightEight: {fileID: 21300000, guid: 59733f385d9458a42b7c50298f595756, type: 3}
+  rightHalf: {fileID: 21300000, guid: 3faf2d8669f7648438135c86e5a0f83b, type: 3}
+  rightQuarter: {fileID: 21300000, guid: 2e13475ae127cdd4dbdbde59a9696f03, type: 3}
+  rightSevenEight: {fileID: 21300000, guid: db0b8a756deffa146afa92260ed04f57, type: 3}
+  rightThreeQuarter: {fileID: 21300000, guid: b3f5fb4df0a8d4748bce6c51684cc16c, type: 3}
