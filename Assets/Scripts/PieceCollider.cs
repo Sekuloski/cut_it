@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PieceCollider : MonoBehaviour
 {
+    int deathTimer = 4;
+    public GameManager gameManager;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "MiddleLine")
         {
-            Debug.Log("Entered");
+            deathTimer = 4;
+            StartCoroutine(PlankCountdown());
         }
     }
 
@@ -16,7 +20,22 @@ public class PieceCollider : MonoBehaviour
     {
         if (collision.tag == "MiddleLine")
         {
-            Debug.Log("Exited");
+            StopAllCoroutines();
+            deathTimer = 4;
         }
+    }
+
+    IEnumerator PlankCountdown()
+    {
+        while (deathTimer > 0)
+        {
+            deathTimer -= 1;
+
+            Debug.Log(deathTimer);
+            yield return new WaitForSeconds(1);
+        }
+
+        gameManager.EndGame();
+        yield return null;
     }
 }

@@ -9,6 +9,7 @@ public class CutPlankSpawner : MonoBehaviour
     [SerializeField] float rightwardForce = 1f;
     [SerializeField] float rotationTorque = 0.8f;
     [SerializeField] PlankObjectSO[] planks;
+    [SerializeField] GameManager gameManager;
 
     [Header("Piece Prefabs")]
     [SerializeField] GameObject eightPrefab;
@@ -37,24 +38,25 @@ public class CutPlankSpawner : MonoBehaviour
         currentSprites = planks[activePlank].LoadSprites();
     }
 
-    public bool Cut(float x, float moveSpeedMultiplier)
+    public bool Cut(float x, float y, float moveSpeedMultiplier)
     {
         if (x < 0)
         {
             if (-x < halfPosition/2)
             {
-                CutHalf(x, moveSpeedMultiplier);
+                CutHalf(x, y, moveSpeedMultiplier);
             }
             else if (-x < quarterPosition)
             {
-                CutRightQuarter(x, moveSpeedMultiplier);
+                CutRightQuarter(x, y, moveSpeedMultiplier);
             } 
             else if (-x < eightPosition + sevenEightPosition)
             {
-                CutRightEight(x, moveSpeedMultiplier);
+                CutRightEight(x, y, moveSpeedMultiplier);
             }
             else
             {
+                gameManager.UpdateScore(-5);
                 return false;
             }
         }
@@ -62,18 +64,19 @@ public class CutPlankSpawner : MonoBehaviour
         {
             if (x < halfPosition/2)
             {
-                CutHalf(x, moveSpeedMultiplier);
+                CutHalf(x, y, moveSpeedMultiplier);
             }
             else if (x < quarterPosition)
             {
-                CutLeftQuarter(x, moveSpeedMultiplier);
+                CutLeftQuarter(x, y, moveSpeedMultiplier);
             }
             else if (x < eightPosition + sevenEightPosition)
             {
-                CutLeftEight(x, moveSpeedMultiplier);
+                CutLeftEight(x, y, moveSpeedMultiplier);
             }
             else
             {
+                gameManager.UpdateScore(-5);
                 return false;
             }
         }
@@ -81,8 +84,9 @@ public class CutPlankSpawner : MonoBehaviour
         return true;
     }
 
-    public void CutHalf(float offsetPosition, float moveSpeed)
+    public void CutHalf(float offsetPosition, float y, float moveSpeed)
     {
+        gameManager.UpdateScore(5);
         SpawnPieces(
             halfPrefab,
             halfPrefab,
@@ -90,14 +94,16 @@ public class CutPlankSpawner : MonoBehaviour
             currentSprites[half+5], 
             halfPosition, 
             halfPosition,
+            y,
             offsetPosition,
             moveSpeed,
             true
             );
     }
 
-    public void CutLeftEight(float offsetPosition, float moveSpeed)
+    public void CutLeftEight(float offsetPosition, float y, float moveSpeed)
     {
+        gameManager.UpdateScore(1);
         SpawnPieces(
             eightPrefab,
             sevenEightPrefab,
@@ -105,13 +111,15 @@ public class CutPlankSpawner : MonoBehaviour
             currentSprites[sevenEight + 5],
             eightPosition,
             sevenEightPosition,
+            y,
             offsetPosition,
             moveSpeed
             );
     }
 
-    public void CutLeftQuarter(float offsetPosition, float moveSpeed)
+    public void CutLeftQuarter(float offsetPosition, float y, float moveSpeed)
     {
+        gameManager.UpdateScore(2);
         SpawnPieces(
             quarterPrefab,
             threeQuarterPrefab,
@@ -119,13 +127,15 @@ public class CutPlankSpawner : MonoBehaviour
             currentSprites[threeQuarter + 5],
             quarterPosition,
             threeQuarterPosition,
+            y,
             offsetPosition,
             moveSpeed
             );
     }
 
-    public void CutRightQuarter(float offsetPosition, float moveSpeed)
+    public void CutRightQuarter(float offsetPosition, float y, float moveSpeed)
     {
+        gameManager.UpdateScore(2);
         SpawnPieces(
             threeQuarterPrefab,
             quarterPrefab,
@@ -133,13 +143,15 @@ public class CutPlankSpawner : MonoBehaviour
             currentSprites[quarter + 5],
             threeQuarterPosition,
             quarterPosition,
+            y,
             offsetPosition,
             moveSpeed
             );
     }
 
-    public void CutRightEight(float offsetPosition, float moveSpeed)
+    public void CutRightEight(float offsetPosition, float y, float moveSpeed)
     {
+        gameManager.UpdateScore(1);
         SpawnPieces(
             sevenEightPrefab,
             eightPrefab,
@@ -147,6 +159,7 @@ public class CutPlankSpawner : MonoBehaviour
             currentSprites[eight + 5],
             sevenEightPosition,
             eightPosition,
+            y,
             offsetPosition,
             moveSpeed
             );
@@ -155,16 +168,17 @@ public class CutPlankSpawner : MonoBehaviour
     void SpawnPieces(
         GameObject leftPrefab, GameObject rightPrefab,
         Sprite leftSprite, Sprite rightSprite,
-        float Position, float rightPosition,
+        float leftPosition, float rightPosition, float y,
         float offset, float moveSpeed,
         bool half = false
         )
     {
-        GameObject leftPiece = Instantiate(leftPrefab, new Vector3(offset - Position, 0, 0), Quaternion.identity);
+        GameObject leftPiece = Instantiate(leftPrefab, new Vector3(offset - leftPosition, y, 0), Quaternion.identity);
         SpriteRenderer spriteRenderer = leftPiece.GetComponent<SpriteRenderer>();
         Rigidbody2D rb2D = leftPiece.GetComponent<Rigidbody2D>();
         spriteRenderer.sprite = leftSprite;
         rb2D.AddForce(new Vector2(-rightwardForce * moveSpeed * Random.Range(0.5f, 1.5f), upwardForce), ForceMode2D.Impulse);
+        leftPiece.GetComponent<PieceCollider>().gameManager = gameManager; 
 
         if (!half )
         {
@@ -177,11 +191,12 @@ public class CutPlankSpawner : MonoBehaviour
             Destroy(leftPiece, halfDestroyTime);
         }
 
-        GameObject rightPiece = Instantiate(rightPrefab, new Vector3(offset + rightPosition, 0, 0), Quaternion.identity);
+        GameObject rightPiece = Instantiate(rightPrefab, new Vector3(offset + rightPosition, y, 0), Quaternion.identity);
         spriteRenderer = rightPiece.GetComponent<SpriteRenderer>();
         rb2D = rightPiece.GetComponent<Rigidbody2D>();
         spriteRenderer.sprite = rightSprite;
         rb2D.AddForce(new Vector2(rightwardForce * moveSpeed * Random.Range(0.5f, 1.5f), upwardForce), ForceMode2D.Impulse);
+        rightPiece.GetComponent<PieceCollider>().gameManager = gameManager;
 
         if (!half)
         {

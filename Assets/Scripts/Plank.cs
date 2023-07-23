@@ -9,7 +9,7 @@ public class Plank : MonoBehaviour
     CutPlankSpawner plankCutter;
     [SerializeField] float initialMoveSpeed = 3;
     [SerializeField] float moveSpeed = 3;
-
+    [SerializeField] GameManager gameManager;
 
 
     void Awake()
@@ -20,12 +20,15 @@ public class Plank : MonoBehaviour
 
     void Update()
     {
-        MovePlank();
+        if (gameManager.isPlaying)
+        {
+            MovePlank();
+        }
     }
 
     public bool Cut()
     {
-        return plankCutter.Cut(transform.position.x, moveSpeed / initialMoveSpeed);
+        return plankCutter.Cut(transform.position.x, transform.position.y, moveSpeed / initialMoveSpeed);
     }
 
     private void MovePlank()

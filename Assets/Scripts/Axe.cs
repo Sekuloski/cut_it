@@ -6,6 +6,7 @@ public class Axe : MonoBehaviour
 {
     Animator animator;
     [SerializeField] Plank plank;
+    [SerializeField] GameManager gameManager;
 
     SpriteRenderer plankSpriteRenderer;
 
@@ -19,7 +20,7 @@ public class Axe : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && gameManager.isPlaying)
         {
             animator.SetTrigger("Cut");
         }
@@ -27,7 +28,7 @@ public class Axe : MonoBehaviour
 
     public void Cut()
     {
-        if (plank.Cut())
+        if (plankSpriteRenderer.enabled && plank.Cut())
         {
             plankSpriteRenderer.enabled = false;
             Invoke("RespawnPlank", respawnTime);
