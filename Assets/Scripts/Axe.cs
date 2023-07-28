@@ -6,7 +6,7 @@ public class Axe : MonoBehaviour
 {
     Animator animator;
     [SerializeField] Plank plank;
-    [SerializeField] GameManager gameManager;
+    GameManager gameManager;
 
     SpriteRenderer plankSpriteRenderer;
 
@@ -16,6 +16,7 @@ public class Axe : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         plankSpriteRenderer = plank.GetComponent<SpriteRenderer>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()

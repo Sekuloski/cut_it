@@ -5,11 +5,11 @@ using UnityEngine;
 public class CutPlankSpawner : MonoBehaviour
 {
     private const float halfDestroyTime = 1f;
+    GameManager gameManager;
     [SerializeField] float upwardForce = 3f;
     [SerializeField] float rightwardForce = 1f;
     [SerializeField] float rotationTorque = 0.8f;
     [SerializeField] PlankObjectSO[] planks;
-    [SerializeField] GameManager gameManager;
 
     [Header("Piece Prefabs")]
     [SerializeField] GameObject eightPrefab;
@@ -32,6 +32,11 @@ public class CutPlankSpawner : MonoBehaviour
     int quarter = 2;
     int sevenEight = 3;
     int threeQuarter = 4;
+
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     private void Start()
     {
@@ -177,8 +182,8 @@ public class CutPlankSpawner : MonoBehaviour
         SpriteRenderer spriteRenderer = leftPiece.GetComponent<SpriteRenderer>();
         Rigidbody2D rb2D = leftPiece.GetComponent<Rigidbody2D>();
         spriteRenderer.sprite = leftSprite;
+        spriteRenderer.sortingOrder = 11;
         rb2D.AddForce(new Vector2(-rightwardForce * moveSpeed * Random.Range(0.5f, 1.5f), upwardForce), ForceMode2D.Impulse);
-        leftPiece.GetComponent<PieceCollider>().gameManager = gameManager; 
 
         if (!half )
         {
@@ -196,7 +201,6 @@ public class CutPlankSpawner : MonoBehaviour
         rb2D = rightPiece.GetComponent<Rigidbody2D>();
         spriteRenderer.sprite = rightSprite;
         rb2D.AddForce(new Vector2(rightwardForce * moveSpeed * Random.Range(0.5f, 1.5f), upwardForce), ForceMode2D.Impulse);
-        rightPiece.GetComponent<PieceCollider>().gameManager = gameManager;
 
         if (!half)
         {

@@ -2,18 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     int score = 0;
     int highScore = 0;
-    public bool isPlaying = true;
+    public bool isPlaying = false;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI highScoreText;
+    [SerializeField] GameObject startGame;
+    [SerializeField] GameObject selectAxe;
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         LoadHighScore();
+    }
+
+    public void StartGame()
+    {
+        isPlaying = true;
+        startGame.SetActive(false);
+        selectAxe.SetActive(false);
     }
 
     public void UpdateScore(int points)

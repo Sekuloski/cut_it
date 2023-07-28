@@ -6,16 +6,17 @@ public class Plank : MonoBehaviour
 {
 
     bool goingRight;
+    GameManager gameManager;
     CutPlankSpawner plankCutter;
     [SerializeField] float initialMoveSpeed = 3;
     [SerializeField] float moveSpeed = 3;
-    [SerializeField] GameManager gameManager;
 
 
     void Awake()
     {
         goingRight = Random.Range(0, 1) > 0.5;
         plankCutter = GetComponent<CutPlankSpawner>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()

@@ -5,7 +5,12 @@ using UnityEngine;
 public class PieceCollider : MonoBehaviour
 {
     int deathTimer = 4;
-    public GameManager gameManager;
+    GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
