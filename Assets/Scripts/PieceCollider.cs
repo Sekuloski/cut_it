@@ -6,10 +6,13 @@ public class PieceCollider : MonoBehaviour
 {
     int deathTimer = 4;
     GameManager gameManager;
+    MidLineManager midLineManager;
 
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
+        midLineManager = FindObjectOfType<MidLineManager>();
+        Invoke("AddToMidLine", 2);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,5 +45,10 @@ public class PieceCollider : MonoBehaviour
 
         gameManager.EndGame();
         yield return null;
+    }
+
+    private void AddToMidLine()
+    {
+        midLineManager.UpdateObjects(gameObject);
     }
 }
