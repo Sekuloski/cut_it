@@ -1,5 +1,5 @@
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import PlayerSerializer
@@ -50,4 +50,4 @@ def get_scores(request):
     players = Player.objects.all()
     serializer = PlayerSerializer(players, many=True)
 
-    return Response(serializer.data)
+    return JsonResponse({'players': serializer.data})

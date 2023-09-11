@@ -29,9 +29,11 @@ public class GameManager : MonoBehaviour
     bool menuFadeOut = false;
 
     [SerializeField] Plank plank;
+    API api;
 
     private void Awake()
     {
+        api = GetComponent<API>();
         DontDestroyOnLoad(gameObject);
         LoadHighScore();
         LoadUsername();
@@ -40,6 +42,8 @@ public class GameManager : MonoBehaviour
         EndGameButton.interactable = false;
         RestartGameButton.interactable = false;
         menuButtonsCanvas = menuButtons.GetComponent<CanvasGroup>();
+
+        api.GetPlayerData();
     }
 
     private void Update()
