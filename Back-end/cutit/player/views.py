@@ -1,15 +1,24 @@
 import json
-
 from django.http import HttpResponse
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import PlayerSerializer
 from .models import Player
 
-# Create your views here.
 
-
-@csrf_exempt
+@api_view(['POST'])
 def update_player(request):
+    """
+    /update
+
+    Update a players score. If the player doesn't exist, he will be created
+
+    {
+        "username": "Sekuloski",
+        "high_score": 200,
+        "location": "41.99615797025478,21.39755421534261"
+    }
+    """
     data = json.loads(request.body)
 
     try:
@@ -29,3 +38,16 @@ def update_player(request):
         Player(name=username, high_score=high_score, location=location).save()
 
     return HttpResponse('Success!', status=200)
+
+
+@api_view(['GET'])
+def get_scores(request):
+    """
+    /players
+
+    Get all Players and their scores.
+    """
+    players = Player.objects.all()
+    serializer = PlayerSerializer(players, many=True)
+
+    return Response(serializer.data)
