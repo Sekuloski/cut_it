@@ -19,6 +19,11 @@ public class Plank : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
     }
 
+    public void ResetPlank()
+    {
+        transform.position = new Vector3(0, transform.position.y, transform.position.z);
+    }
+
     void Update()
     {
         if (gameManager.isPlaying)

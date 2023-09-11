@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PieceCollider : MonoBehaviour
 {
-    int deathTimer = 4;
+    private int deathTimer = 4;
     GameManager gameManager;
     MidLineManager midLineManager;
+    private Coroutine coroutine;
 
     private void Awake()
     {
@@ -19,8 +20,9 @@ public class PieceCollider : MonoBehaviour
     {
         if (collision.tag == "MiddleLine")
         {
+            Debug.Log("Starting Countdown");
             deathTimer = 4;
-            StartCoroutine(PlankCountdown());
+            coroutine = StartCoroutine(PlankCountdown());
         }
     }
 
@@ -28,12 +30,14 @@ public class PieceCollider : MonoBehaviour
     {
         if (collision.tag == "MiddleLine")
         {
-            StopAllCoroutines();
+            StopCoroutine(coroutine);
+            coroutine = null;
+            Debug.Log("Ended Countdown");
             deathTimer = 4;
         }
     }
 
-    IEnumerator PlankCountdown()
+    private IEnumerator PlankCountdown()
     {
         while (deathTimer > 0)
         {
@@ -43,8 +47,7 @@ public class PieceCollider : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
-        gameManager.EndGame();
-        yield return null;
+        gameManager.StopGame();
     }
 
     private void AddToMidLine()

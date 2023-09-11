@@ -40,7 +40,6 @@ public class MidLineManager : MonoBehaviour
         if (highestPiece > -5)
         {
             float newAlpha = midLineHeight / highestPiece;
-            Debug.Log(newAlpha);
             redLine.color = new Color(255, 255, 255, newAlpha);
         }
         else
