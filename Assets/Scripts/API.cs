@@ -6,6 +6,8 @@ using static API;
 
 public class API : MonoBehaviour
 {
+    public List<PlayerData> players;
+
     [System.Serializable]
     public class JsonData
     {
@@ -59,12 +61,8 @@ public class API : MonoBehaviour
             else
             {
                 string responseJson = webRequest.downloadHandler.text;
-                List<PlayerData> playerList = JsonUtility.FromJson<JsonData>(responseJson).players;
-
-                foreach (PlayerData playerData in playerList)
-                {
-                    Debug.Log($"ID: {playerData.id}, Name: {playerData.name}, High Score: {playerData.high_score}, Location: {playerData.location}");
-                }
+                players = JsonUtility.FromJson<JsonData>(responseJson).players;
+                players.Sort((a, b) => b.high_score.CompareTo(a.high_score));
             }
         }
     }

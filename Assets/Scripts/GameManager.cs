@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Button StartGameButton;
     [SerializeField] Button EndGameButton;
     [SerializeField] Button RestartGameButton;
+    [SerializeField] Animator Settings;
+    [SerializeField] Animator Menu;
 
     CanvasGroup postGameButtonsCanvas;
     CanvasGroup menuButtonsCanvas;
@@ -27,6 +29,8 @@ public class GameManager : MonoBehaviour
     bool postGameFadeOut = false;
     bool menuFadeIn = false;
     bool menuFadeOut = false;
+
+    bool leaderboardUpdated = false;
 
     [SerializeField] Plank plank;
     API api;
@@ -48,8 +52,27 @@ public class GameManager : MonoBehaviour
         api.GetPlayerData();
     }
 
+    public void ToggleSettings()
+    {
+        Menu.enabled = false;
+        Settings.enabled = true;
+        Settings.SetTrigger("Open");
+    }
+
+    public void ToggleMenu()
+    {
+        Settings.enabled = false;
+        Menu.enabled = true;
+        Menu.SetTrigger("Open");
+    }
+
     private void Update()
     {
+        if (!leaderboardUpdated && api.players.Count > 0)
+        {
+            FindObjectOfType<AxeSelector>().UpdateLeaderboard(api.players, services.location, username);
+            leaderboardUpdated = true;
+        }
         if (postGameFadeIn)
         {
             if (postGameButtonsCanvas.alpha < 1)
