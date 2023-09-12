@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
-
+CSRF_TRUSTED_ORIGINS = ['http://sekuloski.mk:25565']
 # Application definition
 
 INSTALLED_APPS = [

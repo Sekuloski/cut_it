@@ -4,7 +4,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import PlayerSerializer
 from .models import Player
-
+import logging
+from systemd.journal import JournalHandler
+log = logging.getLogger('demo')
+log.addHandler(JournalHandler())
+log.setLevel(logging.DEBUG)
 
 @api_view(['POST'])
 def update_player(request):
@@ -22,11 +26,13 @@ def update_player(request):
     data = json.loads(request.body)
 
     try:
-        username = data['username']
+        username = data['name']
         high_score = data['high_score']
         location = data['location']
     except KeyError as e:
-        return HttpResponse(e, status=400)
+        log.info(data)
+        log.info(e)
+        return HttpResponse(e, status=401)
 
     if Player.objects.filter(name=username).exists():
         player = Player.objects.get(name=username)
