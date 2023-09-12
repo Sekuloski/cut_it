@@ -37,7 +37,7 @@ public class API : MonoBehaviour
         StartCoroutine(SendGetRequest(playersEndpoint));
     }
 
-    public void UpdateData(string username, int high_score, string location = "")
+    public void UpdateData(string username, int high_score, string location)
     {
         PlayerData playerData = new PlayerData(username, high_score, location);
         string updateEndpoint = baseUrl + "/update";

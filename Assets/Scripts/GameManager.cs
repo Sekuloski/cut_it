@@ -30,10 +30,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Plank plank;
     API api;
+    Services services;
 
     private void Awake()
     {
         api = GetComponent<API>();
+        services = GetComponent<Services>();
         DontDestroyOnLoad(gameObject);
         LoadHighScore();
         LoadUsername();
@@ -52,13 +54,11 @@ public class GameManager : MonoBehaviour
         {
             if (postGameButtonsCanvas.alpha < 1)
             {
-                postGameButtonsCanvas.alpha += Time.deltaTime;
+                postGameButtonsCanvas.alpha += Time.deltaTime * 2f;
             }
             else
             {
                 postGameFadeIn = false;
-                EndGameButton.interactable = true;
-                RestartGameButton.interactable = true;
             }
         }
         if (postGameFadeOut)
@@ -113,6 +113,8 @@ public class GameManager : MonoBehaviour
         // User has lost
         isPlaying = false;
         postGameFadeIn = true;
+        EndGameButton.interactable = true;
+        RestartGameButton.interactable = true;
     }
 
     public void EndGame()
@@ -128,6 +130,11 @@ public class GameManager : MonoBehaviour
         postGameFadeOut = true;
         EndGameButton.interactable = false;
         RestartGameButton.interactable = false;
+
+        if (score >= highScore)
+        {
+            api.UpdateData(username, highScore, services.country);
+        }
     }
 
     public void RestartGame()
