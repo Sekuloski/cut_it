@@ -6,11 +6,13 @@ using static API;
 
 public class API : MonoBehaviour
 {
+    [System.Serializable]
     public class JsonData
     {
-        public List<PlayerData> items;
+        public List<PlayerData> players;
     }
 
+    [System.Serializable]
     public class PlayerData
     {
         public int id;
@@ -39,7 +41,7 @@ public class API : MonoBehaviour
     {
         PlayerData playerData = new PlayerData(username, high_score, location);
         string updateEndpoint = baseUrl + "/update";
-        string json = JsonUtility.ToJson(playerData); // Serialize the data to JSON.
+        string json = JsonUtility.ToJson(playerData);
         StartCoroutine(SendPostRequest(updateEndpoint, json));
     }
 
@@ -57,14 +59,12 @@ public class API : MonoBehaviour
             else
             {
                 string responseJson = webRequest.downloadHandler.text;
-                // List<PlayerData> playerList = JsonUtility.FromJson<JsonData>(responseJson);
-                Debug.Log(JsonUtility.FromJson<JsonData>(responseJson));
+                List<PlayerData> playerList = JsonUtility.FromJson<JsonData>(responseJson).players;
 
-                // Now, you can work with the list of player data.
-                //foreach (PlayerData playerData in playerList)
-                //{
-                  //  Debug.Log($"ID: {playerData.id}, Name: {playerData.name}, High Score: {playerData.high_score}, Location: {playerData.location}");
-                //}
+                foreach (PlayerData playerData in playerList)
+                {
+                    Debug.Log($"ID: {playerData.id}, Name: {playerData.name}, High Score: {playerData.high_score}, Location: {playerData.location}");
+                }
             }
         }
     }
