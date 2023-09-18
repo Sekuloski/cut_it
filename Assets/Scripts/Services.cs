@@ -31,6 +31,12 @@ public class Services : MonoBehaviour
         public string country_code;
     }
 
+    private void Awake()
+    {
+        StartCamera();
+        StartCoroutine(GetLocation());
+    }
+
     public void StartCamera()
     {
         rawImage = GetComponent<RawImage>(); // Reference to the RawImage component
@@ -42,7 +48,7 @@ public class Services : MonoBehaviour
             webCamTexture = new WebCamTexture();
 
             rawImage.texture = webCamTexture;
-
+            Debug.LogError(webCamTexture);
             webCamTexture.Play();
         }
         else
