@@ -203,6 +203,13 @@ public class GameManager : MonoBehaviour
         // Load Username from local storage
         username = PlayerPrefs.GetString("Username", "");
         usernameText.text = username;
+        if (username == "")
+        {
+            highScore = 0;
+            PlayerPrefs.SetInt("HighScore", highScore);
+            PlayerPrefs.Save();
+            highScoreText.text = "HighScore: 0";
+        }
     }
 
     private IEnumerator DisableBorder()

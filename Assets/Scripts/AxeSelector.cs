@@ -52,7 +52,15 @@ public class AxeSelector : MonoBehaviour
     public void UpdateLeaderboard(List<PlayerData> players, string location, string username)
     {
         locationText.text = location;
-        usernameText.text = username;
+        if (username != "")
+        {
+            usernameText.text = username;
+        }
+        else
+        {
+            usernameText.text = "Username not set!";
+        }
+       
         GridLayoutGroup layoutGroup = FindObjectsOfType<GridLayoutGroup>()[0];
         for (int i = 0; i < players.Count; i++)
         {
