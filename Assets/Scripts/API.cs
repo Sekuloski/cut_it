@@ -71,7 +71,7 @@ public class API : MonoBehaviour
     {
         byte[] postData = System.Text.Encoding.UTF8.GetBytes(data);
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Post(url, "POST"))
+        using (UnityWebRequest webRequest = UnityWebRequest.PostWwwForm(url, "POST"))
         {
             webRequest.uploadHandler = new UploadHandlerRaw(postData);
             webRequest.downloadHandler = new DownloadHandlerBuffer();

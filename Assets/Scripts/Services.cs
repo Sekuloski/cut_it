@@ -34,8 +34,8 @@ public class Services : MonoBehaviour
     private void Awake()
     {
         StartCamera();
-        StartCoroutine(GetLocation());
-    }
+            StartCoroutine(GetLocation());
+        }
 
     public void StartCamera()
     {
@@ -59,11 +59,10 @@ public class Services : MonoBehaviour
 
     private IEnumerator GetLocation()
     {
-        // Check if location services are enabled
         if (Input.location.isEnabledByUser)
         {
             Input.location.Start();
-            int maxWait = 20; // Maximum wait time in seconds
+            int maxWait = 5;
 
             while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
             {
